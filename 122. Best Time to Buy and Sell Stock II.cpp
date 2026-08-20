@@ -113,3 +113,33 @@ public:
 };
 
 
+
+// Space Optimized Tabulation (using variable)
+// TC: O(n)
+// SC: O(1)
+
+class Solution {
+public:
+    int maxProfit(vector<int>& nums) {
+        int n = nums.size();
+
+        int aheadNotBuy = 0, aheadBuy = 0;
+        int curBuy, curNotBuy;
+
+        for(int ind = n-1; ind >= 0; ind--) {
+
+            curNotBuy = max(nums[ind] + aheadBuy,
+                            0 + aheadNotBuy);
+
+            curBuy = max(-nums[ind] + aheadNotBuy,
+                         0 + aheadBuy);
+
+            aheadBuy = curBuy;
+            aheadNotBuy = curNotBuy;
+        }
+
+        return aheadBuy;
+    }
+};
+
+
